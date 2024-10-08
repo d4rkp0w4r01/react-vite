@@ -2,16 +2,12 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import MyComponent from './Components/learn/MyComponent'
+import { SecondComponent,ThirdComponent } from './Components/learn/SecondComponent'
 
-const MyComponent = () => {
-  return(
-    <div>hacker</div>
-  );
-}
 
 const App = () => {
   const [count, setCount] = useState(0)
-
   return (
     <>
       <div>
@@ -22,8 +18,10 @@ const App = () => {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Hello Hackers</h1>
+      <h1>Vite + React</h1>
       <MyComponent/>
+      <SecondComponent/>
+      <ThirdComponent/>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -35,8 +33,7 @@ const App = () => {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </MyComponent>
+    </>
   )
 }
-
 export default App
