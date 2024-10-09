@@ -1,15 +1,27 @@
-const TodoData = (props) =>{
-    const {name, age, data} = props; //cach code nay hay su dung
-    console.log(`check props: `, props)
-    return(
-      <div className='todo-data'>
-        <div>Hello my name is {name}</div>
-      <div>Leaning Hacking</div>
-      <div>Learning Pwnable</div>
-      <div>
-        {JSON.stringify(props.todoList)}
-      </div>
-      </div>
-    );
+const TodoData = (props) => {
+    //props là một object {}
+    // {
+    //     name: "ERic",
+    //     age: 25,
+    //     data: {}
+    // }
+    //destructuring object
+    const { name, age, data } = props;
+    // const name = props.name;
+    // const age = props.age;
+    // const data = props.data;
+
+    console.log(">>> check props: ", props)
+    return (
+        <div className='todo-data'>
+            <div>My name is {name} </div>
+            <div> Learning React </div>
+            <div> Watching Youtube</div>
+            <div>
+                {JSON.stringify(props.todoList)}
+            </div>
+        </div>
+    )
 }
+
 export default TodoData;
