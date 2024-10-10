@@ -1,20 +1,18 @@
 const TodoData = (props) => {
-    //props là một object {}
-    // {
-    //     name: "ERic",
-    //     age: 25,
-    //     data: {}
-    // }
-    //destructuring object
-    const { name, age, data } = props;
-    // const name = props.name;
-    // const age = props.age;
-    // const data = props.data;
+    const { todoList } = props;
 
-    console.log(">>> check props: ", props)
+    console.log(">>> check props: ", todoList)
     return (
         <div className='todo-data'>
-            <div>My name is {name} </div>
+            {todoList.map((item, index)=>{
+                console.log("check map: ",item, index)
+                return (
+                    <div className="todo-item">
+                        <div>{item.name}</div>
+                        <button>Delete</button>
+                    </div>
+                );
+            })}
             <div> Learning React </div>
             <div> Watching Youtube</div>
             <div>
