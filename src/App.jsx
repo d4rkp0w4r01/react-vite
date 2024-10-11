@@ -10,6 +10,11 @@ const App = () => {
     //{id:3, name:`Leaning Hacking`}
   ])
 
+  const deleteTodo = (id) => {
+    const newTodo = todoList.filter(item => item.id !== id)
+    setTodoList(newTodo)
+  }
+
   const addNewTodo = (name) => {
     const newTodo = {
       id: randomIntFromInterval(1, 1000),
@@ -43,6 +48,7 @@ const App = () => {
       {todoList.length > 0 ?
         <TodoData
           todoList={todoList}
+          deleteTodo={deleteTodo}
         />
 
 
