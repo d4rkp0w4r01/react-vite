@@ -3,6 +3,9 @@ import TodoData from './Components/learn/todo/TodoData';
 import TodoNew from './Components/learn/todo/TodoNew';
 import ReactLogo from './assets/react.svg';
 import { useState } from 'react';
+import Header from  './Components/layout/header'
+import Footer from './Components/layout/footer';
+
 const App = () => {
   const [todoList, setTodoList] = useState([
     //{id:1, name:`Leaning Hacking`},
@@ -27,25 +30,29 @@ const App = () => {
   }
 
   return (
-    <div className="todo-container">
-      <div className="todo-title">Todo List</div>
-      <TodoNew
-        addNewTodo={addNewTodo}
-      />
-
-      {todoList.length > 0 ?
-        <TodoData
-          todoList={todoList}
-          deleteTodo={deleteTodo}
+    <>
+    <Header/>
+      <div className="todo-container">
+        <div className="todo-title">Todo List</div>
+        <TodoNew
+          addNewTodo={addNewTodo}
         />
 
+        {todoList.length > 0 ?
+          <TodoData
+            todoList={todoList}
+            deleteTodo={deleteTodo}
+          />
 
-        :
-        <div className='todo-image'>
-          <img src={ReactLogo} className='logo' />
-        </div>
-      }
-    </div>
+          :
+          <div className='todo-image'>
+            <img src={ReactLogo} className='logo' />
+          </div>
+        }
+      </div>
+      <Footer/>
+    </>
+  
   )
 }
 export default App
