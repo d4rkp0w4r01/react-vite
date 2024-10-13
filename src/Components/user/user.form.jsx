@@ -37,7 +37,7 @@ const UserForm = () => {
                     </div>
                     <div>
                         <span>Phone Number</span>
-                        <Input 
+                        <Input
                         value={phoneNumber}
                         onChange={(event) => {setPhoneNumber(event.target.value)}}
                         />
