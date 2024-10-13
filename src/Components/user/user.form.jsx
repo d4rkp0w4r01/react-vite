@@ -17,7 +17,13 @@ const UserForm = () => {
                 description: `Created User Successfully`
             })
         }
-        console.log(`check res: `, res.data) //check res
+        //console.log(`check res: `, res.data) //check res
+        else{
+            notification.error({
+                message: `Error Create User`,
+                description: JSON.stringify(res.message)
+            })
+        }
     }
     return (
         <div className="user-form" style={{ margin: "20px 0" }}>
