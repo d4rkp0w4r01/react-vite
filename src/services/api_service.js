@@ -1,4 +1,3 @@
-//import axios from 'axios';
 import axios from './axios.customize';
 
 const createUserAPI = (fullName, password, email, phone) => {
@@ -24,8 +23,13 @@ const fetchAllUserAPI = () => {
     const URL_Backend = `/api/v1/user`;
     return axios.get(URL_Backend);
 }
+const deleteUserAPI = (id) => {
+    const URL_Backend = `/api/v1/user/${id}`;
+    return axios.delete(URL_Backend);
+}
 export {
     createUserAPI,
     updateUserAPI,
-    fetchAllUserAPI
+    fetchAllUserAPI,
+    deleteUserAPI
 }
