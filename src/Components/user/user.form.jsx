@@ -1,4 +1,4 @@
-import { Button, Input, notification } from 'antd';
+import { Button, Input, notification, Modal } from 'antd';
 import { useState } from 'react';
 import { createUserAPI } from '../../services/api_service';
 
@@ -7,17 +7,17 @@ const UserForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
-    //console.log(`check input case: `, fullName, Email, Password,phoneNumber); //check input return
-    const handleClickBtn = async () => {
-        //console.log(`get value by button: `, {fullName,Email,Password,phoneNumber}); // check get data
+    const [isModalOpen, setIsModalOpen] = useState("false");
+
+    const handleSubmitBtn = async () => {
         const res = await createUserAPI(fullName, password, email, phone)
         if (res.data) {
             notification.success({
                 message: `Create User`,
                 description: `Created User Successfully`
             })
+            setIsModalOpen(false)
         }
-        //console.log(`check res: `, res.data) //check res
         else {
             notification.error({
                 message: `Error Create User`,
@@ -25,47 +25,58 @@ const UserForm = () => {
             })
         }
     }
+
     return (
         <div className="user-form" style={{ margin: "20px 0" }}>
-            <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-                <div>
-                    <span>FullName</span>
-                    <Input
-                        value={fullName}
-                        //onChange={(event) =>{console.log(`check input`,event.target.value)}} //check input event
-                        onChange={(event) => { setFullName(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Email</span>
-                    <Input
-                        value={email}
-                        onChange={(event) => { setEmail(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Password</span>
-                    <Input.Password
-                        value={password}
-                        onChange={(event) => { setPassword(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <span>Phone Number</span>
-                    <Input
-                        value={phone}
-                        onChange={(event) => { setPhone(event.target.value) }}
-                    />
-                </div>
-                <div>
-                    <Button type='primary'
-                        //onClick={() => handleClickBtn()} // passing value
-                        onClick={handleClickBtn}
-                    >Create User</Button>
-                </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <h3>Table Users</h3>
+                <Button
+                    type='primary'
+                    onClick={() => { setIsModalOpen(true) }}
+                >
+                    Create User
+                </Button>
             </div>
+
+            <Modal
+                title="Create User"
+                open={isModalOpen}
+                onOk={() => handleSubmitBtn()}
+                onCancel={() => setIsModalOpen(false)}
+            >
+                <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+                    <div>
+                        <span>FullName</span>
+                        <Input
+                            value={fullName}
+                            onChange={(event) => setFullName(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <span>Email</span>
+                        <Input
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <span>Password</span>
+                        <Input.Password
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <span>Phone Number</span>
+                        <Input
+                            value={phone}
+                            onChange={(event) => setPhone(event.target.value)}
+                        />
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
-
 }
+
 export default UserForm;
