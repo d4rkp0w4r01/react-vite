@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
 import { Input, notification, Modal } from "antd";
-import { createUserAPI } from "../../services/api_service";
+import { createUserAPI, updateUserAPI } from "../../services/api_service";
 
 const UpdateUserModal = (props) => {
     const [id, setId] = useState("");
     const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
-    const {isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate} = props
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props
     useEffect(() => {
-        if(dataUpdate){
+        if (dataUpdate) {
             setId(dataUpdate._id)
             setFullName(dataUpdate.fullName);
             setPhone(dataUpdate.phone);
         }
     }, [dataUpdate])
     const handleSubmitBtn = async () => {
-        const res = await createUserAPI(fullName, email, password, phone);
+        const res = await updateUserAPI(id, fullName, phone);
         if (res.data) {
             notification.success({
-                message: "Create user",
-                description: "Tạo user thành công"
+                message: "Update User",
+                description: "Update User Successfully"
             })
             resetAndCloseModal();
-            // await loadUser();
+            await loadUser();
 
         } else {
             notification.error({
-                message: "Error create user",
+                message: "Error Update User",
                 description: JSON.stringify(res.message)
             })
         }
@@ -50,7 +50,7 @@ const UpdateUserModal = (props) => {
             okText={"SAVE"}
         >
             <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
-            <div>
+                <div>
                     <span>ID</span>
                     <Input
                         value={id}

@@ -15,8 +15,10 @@ const UserPage = (props) => {
 
     return (
         <div style={{ padding: "20 px" }}>
-            <UserForm loadUser ={loadUser}/>
-            <UserTable dataUsers={dataUsers} />
+            <UserForm loadUser={loadUser} />
+            <UserTable dataUsers={dataUsers}
+                loadUser={loadUser}
+            />
         </div>
     );
 

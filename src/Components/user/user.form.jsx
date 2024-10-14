@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { createUserAPI } from '../../services/api_service';
 
 const UserForm = (props) => {
-    const {loadUser} = props
+    const { loadUser } = props
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
