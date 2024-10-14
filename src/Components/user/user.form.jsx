@@ -2,7 +2,8 @@ import { Button, Input, notification, Modal } from 'antd';
 import { useState } from 'react';
 import { createUserAPI } from '../../services/api_service';
 
-const UserForm = () => {
+const UserForm = (props) => {
+    const {loadUser} = props
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ const UserForm = () => {
                 description: `Created User Successfully`
             })
             resetAndCloseModal();
+            await loadUser();
         }
         else {
             notification.error({

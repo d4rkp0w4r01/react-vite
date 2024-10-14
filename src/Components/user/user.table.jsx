@@ -1,13 +1,8 @@
 import { Space, Table, Tag } from 'antd';
-import { fetchAllUserAPI } from '../../services/api_service';
-import { useEffect, useState } from 'react';
 
-const UserTable = () => {
-    const [dataUsers, setDataUser] = useState([])
-    useEffect(() => {
-        console.log(`render 111`)
-        loadUser();
-    }, []);
+const UserTable = (props) => {
+    const {dataUsers} = props
+
     const columns = [
         {
             title: 'ID',
@@ -30,11 +25,6 @@ const UserTable = () => {
             dataIndex: 'role',
         },
     ];
-
-    const loadUser = async () => {
-        const res = await fetchAllUserAPI()
-        setDataUser(res.data)
-    }
 
     return (
         <Table columns={columns}
