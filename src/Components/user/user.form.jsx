@@ -18,7 +18,7 @@ const UserForm = () => {
             })
         }
         //console.log(`check res: `, res.data) //check res
-        else{
+        else {
             notification.error({
                 message: `Error Create User`,
                 description: JSON.stringify(res.message)
