@@ -16,7 +16,7 @@ const UserForm = () => {
                 message: `Create User`,
                 description: `Created User Successfully`
             })
-            setIsModalOpen(false)
+            resetAndCloseModal();
         }
         else {
             notification.error({
@@ -24,6 +24,15 @@ const UserForm = () => {
                 description: JSON.stringify(res.message)
             })
         }
+    }
+
+    const resetAndCloseModal = () => {
+        setIsModalOpen(false)
+        setFullName("")
+        setEmail("");
+        setPassword("");
+        setPhone("");
+        setIsModalOpen("");
     }
 
     return (
@@ -42,7 +51,7 @@ const UserForm = () => {
                 title="Create User"
                 open={isModalOpen}
                 onOk={() => handleSubmitBtn()}
-                onCancel={() => setIsModalOpen(false)}
+                onCancel={() => resetAndCloseModal()}
             >
                 <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
                     <div>
