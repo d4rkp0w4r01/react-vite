@@ -1,14 +1,16 @@
-import { Drawer } from 'antd';
+import { Drawer, notification } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, message, Upload } from 'antd';
 import { useState } from 'react';
+import { handleUploadFile, updateUserAvatarAPI } from '../../services/api_service';
 const ViewUserDetail = (props) => {
 
     const {
         dataDetail,
         setDataDetail,
         isDetailOpen,
-        setIsDetailOpen
+        setIsDetailOpen,
+        loadUser
     } = props;
 
     const [selectedFile, setSelectedFile] = useState(null)
@@ -27,6 +29,44 @@ const ViewUserDetail = (props) => {
         }
         console.log(`check file`, preview)
 
+    }
+    const handleUpdateUserAvatar = async () => {
+        // upload file
+        const resUpload = await handleUploadFile(selectedFile, 'avatar')
+        if (resUpload.data) {
+            notification.success({
+                message: 'Upload File',
+                description: 'Uploaded File Successfully !'
+            })
+        }
+        else {
+            notification.error({
+                message: 'Fail Upload File',
+                description: JSON.stringify(resUpload.message)
+            })
+            return;
+        }
+        console.log(`check:`, resUpload)
+        // update user
+        const newAvatar = resUpload.data.fileUploaded
+        const resUpdateAvatar = await updateUserAvatarAPI(newAvatar, dataDetail._id, dataDetail.fullName, dataDetail.phone)
+
+        if (resUpdateAvatar.data) {
+            setIsDetailOpen(false);
+            setSelectedFile(null);
+            setPreview(null);
+            await loadUser()
+            notification.success({
+                message: 'Update User Avatar',
+                description: 'Updated Successfully !'
+            })
+        }
+        else {
+            notification.error({
+                message: 'Failed To Update User Avatar',
+                description: JSON.stringify(resUpdateAvatar.message)
+            })
+        }
     }
     return (
         <Drawer title="Chi tiết User"
@@ -71,12 +111,18 @@ const ViewUserDetail = (props) => {
                     </center>
                 </div>
                 <br />
-                {preview &&
-                    <div>
-                        <center><img height={300} width={300}
-                            src={preview} /></center>
-                    </div>
-                }
+                <>
+                    {preview &&
+                        <div>
+                            <center><img height={300} width={300}
+                                src={preview} /></center>
+                        </div>
+                    }
+                    <br />
+                    <Button type='primary'
+                        onClick={() => handleUpdateUserAvatar()}
+                    >Save</Button>
+                </>
             </>
                 :
                 <>
