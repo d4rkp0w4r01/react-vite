@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
+
 const onFinish = (values) => {
   console.log("Success:", values);
 };
@@ -7,6 +8,7 @@ const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const registerPage = () => (
+  
   <div
     style={{
       display: "flex",
@@ -103,7 +105,7 @@ const registerPage = () => (
         }}
       >
         <Button type="primary" htmlType="submit">
-          Submit
+          Register
         </Button>
       </Form.Item>
     </Form>
