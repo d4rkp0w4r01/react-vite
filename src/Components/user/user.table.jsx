@@ -9,7 +9,6 @@ const UserTable = (props) => {
   const {
     dataUsers,
     loadUser,
-
     current,
     pageSize,
     total,
