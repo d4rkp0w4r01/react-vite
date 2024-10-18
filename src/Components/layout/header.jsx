@@ -1,13 +1,22 @@
 import { Link, NavLink } from "react-router-dom";
 import { Menu } from "antd";
-import {UserOutlined, BookOutlined, HomeOutlined, LoginOutlined, UserAddOutlined} from "@ant-design/icons";
+import {
+  UserOutlined,
+  BookOutlined,
+  HomeOutlined,
+  LoginOutlined,
+  UserAddOutlined,
+  LogoutOutlined,
+  AliwangwangOutlined,
+  KeyOutlined,
+} from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 //import './header.css'
 const Header = () => {
   const [current, setCurrent] = useState("home");
   const { user } = useContext(AuthContext);
-  console.log(`check`,user)
+  //console.log(`check`,user)
   const onClick = (e) => {
     //console.log("click ", e);
     setCurrent(e.key);
@@ -28,16 +37,41 @@ const Header = () => {
       key: "books",
       icon: <BookOutlined />,
     },
-    {
-      label: <Link to={`/register`}>Register</Link>,
-      key: "register",
-      icon: <UserAddOutlined />,
-    },
-    {
-      label: <Link to={`/login`}>Login</Link>,
-      key: "login",
-      icon: <LoginOutlined />,
-    },
+    ...(!user.id
+      ? [
+          {
+            label: <Link to={`/register`}>Register</Link>,
+            key: "register",
+            icon: <UserAddOutlined />,
+          },
+        ]
+      : []),
+
+    ...(!user.id
+      ? [
+          {
+            label: <Link to={`/login`}>Login</Link>,
+            key: "login",
+            icon: <LoginOutlined />,
+          },
+        ]
+      : []),
+
+    ...(user.id
+      ? [
+          {
+            label: `Welcome ${user.fullName}`,
+            key: "setting",
+            icon: <AliwangwangOutlined />,
+            children: [
+              {
+                label: "Logout",
+                key: "logout",
+              },
+            ],
+          },
+        ]
+      : []),
   ];
   return (
     <Menu
