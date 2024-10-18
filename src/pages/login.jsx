@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/global.css";
 import { Link } from "react-router-dom";
 import { Form, Input, Button, Checkbox, notification } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { loginUserAPI } from "../services/api_service";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Components/context/auth.context";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const onFinish = async (values) => {
     setLoading(true);
@@ -17,6 +19,8 @@ const LoginPage = () => {
         message: "Login User",
         description: "Login User Successfully!",
       });
+      localStorage.setItem(`access_token`, res.data.access_token);
+      setUser(res.data.user);
       navigate("/");
     } else {
       notification.error({
@@ -54,7 +58,7 @@ const LoginPage = () => {
             color: "#1890ff", // Change the color to match your theme
           }}
         >
-          Login
+          LOGIN
         </h2>
         <Form.Item
           name="email"

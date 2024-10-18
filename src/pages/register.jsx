@@ -50,7 +50,7 @@ const registerPage = () => {
           color: "#1890ff", // Change the color to match your theme
         }}
       >
-        Register
+        REGISTER
       </h2>
 
       <Form

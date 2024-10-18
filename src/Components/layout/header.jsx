@@ -1,18 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import { Menu } from "antd";
-import {
-  UserOutlined,
-  BookOutlined,
-  HomeOutlined,
-  LoginOutlined,
-  UserAddOutlined,
-} from "@ant-design/icons";
-import { useState } from "react";
+import {UserOutlined, BookOutlined, HomeOutlined, LoginOutlined, UserAddOutlined} from "@ant-design/icons";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/auth.context";
 //import './header.css'
 const Header = () => {
   const [current, setCurrent] = useState("home");
+  const { user } = useContext(AuthContext);
+  console.log(`check`,user)
   const onClick = (e) => {
-    console.log("click ", e);
+    //console.log("click ", e);
     setCurrent(e.key);
   };
   const items = [
